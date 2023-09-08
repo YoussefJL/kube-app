@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Service
+metadata:
+  name: vproapp-service
+spec:
+  ports:
+    - port: 80
+      targetPort: vproapp-service
+      protocol: TCP
+  
+  selector:
+    app: vproapp
+  #Type is loadbalancer, it's going to launch an ELB.
+  type: LoadBalancer
