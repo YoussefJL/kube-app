@@ -45,7 +45,5 @@ spec:
         - name: vprod-db-data
           awsElasticBlockStore:
           # we should tag the volume in aws console, else we will get permission denied error!!!
-            volumeID: #{volumeID}
+            volumeID: vol-02259de6aa1cbc6bc
             fsType: ext4
-
-
