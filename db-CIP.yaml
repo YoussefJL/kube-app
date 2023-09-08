@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  #this name is important ! 
+  # all our service definition files will be based on our application.properties file. and same for the port number.
+  name: vprodb
+spec:
+  selector:
+    app: vprodb
+  ports:
+  - port: 3306
+    # in the target port, we can give the port number but also we gave a name to our port in the deployment file of db.
+    targetPort: vprodb-port
+    protcol: TCP
