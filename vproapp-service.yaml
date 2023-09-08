@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: vproapp-service
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "alb"
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
 spec:
   ports:
     - port: 80
