@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vprodb
+  labels:
+  #this label is going to be for our service vprodb.
+  #the service of type cluster ip is going to route the request to any pod that has this label.
+    app: vprodb
+
+#specifications about the deployment
+spec: 
+  selector:
+  # If we already have some pods with this label app: vprodb, then that will be already considered in this deployment definition file.
+    matchLabels:
+      app: vprodb
+  replicas: 1
+  template:
+    metadata:
+    #label for our pod
+      labels:
+        app: vprodb
+    #specifications about the pod
+    spec:
+      containers:
+        - name: vprodb
+          image: youssefjouili33/vprofiledb:V1
+          args:
+            - "--ignore-db-dir=lost+found"
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: vprod-db-data
+          ports:
+            - name: vprodb-port
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: db-pass
+      nodeSelector:
+      #the pod will be running in the node with this zone label.
+        zone: us-east-2a
+      volumes:
+        - name: vprod-db-data
+          awsElasticBlockStore:
+          # we should tag the volume in aws console, else we will get permission denied error!!!
+            volumeID: #{volumeID}
+            fsType: ext4
+
+
