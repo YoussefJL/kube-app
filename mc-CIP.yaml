@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: service
+metadata:
+  # name taken from application.properties file
+  name: vprocache01
+spec: 
+  selector:
+    app: vpromc
+  ports:
+    # we r accepting the request from 11211 and forwarding it to 11211
+    - port: 11211
+      targetPort: vpromc-port
+      protocol: TCP
+  type: ClusterIP

@@ -8,7 +8,8 @@ spec:
   selector:
     app: vprodb
   ports:
-  - port: 3306
-    # in the target port, we can give the port number but also we gave a name to our port in the deployment file of db.
-    targetPort: vprodb-port
-    protcol: TCP
+    - port: 3306
+      # in the target port, we can give the port number but also we gave a name to our port in the deployment file of db.
+      targetPort: vprodb-port
+      protcol: TCP
+  type: ClusterIP
